@@ -7,13 +7,13 @@ const HomePublicLayout = ({ children, sx }: { children: ReactNode; sx?: any }) =
   const theme = useTheme()
   const isSm = useMediaQuery(theme.breakpoints.down('md'))
   return (
-    <>
+    <Box component={'div'} display={'flex'} flexDirection={'column'} justifyContent={'space-between'}>
       <HomePublicHeader />
-      <Box minHeight={'calc(100vh - 160px)'} mt={isSm ? 7 : 8} sx={sx}>
+      <Box component={'div'} minHeight={'calc(100vh - 160px)'}  sx={sx}>
         {children}
       </Box>
       <HomePublicFooter />
-    </>
+    </Box>
   )
 }
 

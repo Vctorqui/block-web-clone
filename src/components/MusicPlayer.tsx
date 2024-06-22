@@ -1,0 +1,67 @@
+import React, { useRef, useState } from 'react'
+import data from '../mocks/data'
+import { Box, Button, Stack, Typography } from '@mui/material'
+import { MuteIcon, PlayIcon, SoundIcon } from './SvgIcon'
+import theme from '@/theme/theme'
+
+const MusicPlayer = () => {
+  // create an audio
+  const [songs, setSongs] = useState([])
+  const [currentSong, setCurrentSong] = useState<string | null>(null);
+  const [isPlaying, setIsPlaying] = useState(false);
+  const audioRef = useRef<HTMLAudioElement | null>(null); // Especifica el tipo
+
+  const handlePlay = (songUrl: string) => {
+    if (currentSong === songUrl) {
+      // Si la canción actual es la misma, alterna entre reproducir y pausar
+      if (isPlaying) {
+        audioRef.current?.pause();
+        setIsPlaying(false); // Cambia el estado a "no está reproduciendo"
+      } else {
+        audioRef.current?.play();
+        setIsPlaying(true); // Cambia el estado a "está reproduciendo"
+      }
+    } else {
+      setCurrentSong(songUrl);
+      setIsPlaying(true); // Comienza a reproducir la nueva canción
+    }
+  };
+
+  // En esta versión, utilizamos el operador opcional de encadenamiento (?.) para acceder a las propiedades y métodos de audioRef.current solo si audioRef.current no es nulo. Esto debería evitar el error
+  // El error “Property ‘pause’ does not exist on type ‘never’” se debe a que TypeScript no puede inferir correctamente el tipo de audioRef.current. Para resolverlo, puedes especificar explícitamente el tipo de audioRef como HTMLAudioElement | null
+  return (
+    <Box component={'div'}>
+      {data.map((item: any, i: any) => (
+        <Box component={'div'} key={i}>
+          <Button
+            sx={{ padding: 2, width: '250px', justifyContent: 'flex-start' }}
+            onClick={() => handlePlay(item.src)}
+            variant='outlined'
+          >
+            <Box component='div' display={'flex'} alignItems={'center'} gap={2}>
+              <PlayIcon width={'20px'} height={'20px'} />
+              {/* <SoundIcon width={'20px'} height={'20px'} /> */}
+              {/* <MuteIcon width={'20px'} height={'20px'} /> */}
+              <Stack alignItems={'flex-start'}>
+                <Typography fontSize={'11px'} fontWeight={900} variant='body1'>
+                  {item.title}
+                </Typography>
+                <Typography fontSize={'11px'} variant='body1'>
+                  {item.artist}
+                </Typography>
+              </Stack>
+            </Box>
+            {currentSong && (
+              <audio ref={audioRef} autoPlay>
+                <source src={currentSong} type='audio/mpeg' />
+                Tu navegador no admite el elemento de audio.
+              </audio>
+            )}
+          </Button>
+        </Box>
+      ))}
+    </Box>
+  )
+}
+
+export default MusicPlayer

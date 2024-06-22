@@ -1,13 +1,15 @@
 import React from 'react'
 
 interface IconProps {
-  width?: string
+  width?: any
+  height?: any
 }
 
-export const AccessibilityIcon = ({ width }: IconProps) => {
+export const AccessibilityIcon = ({ width, height }: IconProps) => {
   return (
     <svg
       width={width}
+      height={height}
       xmlns='http://www.w3.org/2000/svg'
       viewBox='0 0 14 17'
       fill='none'
@@ -18,9 +20,10 @@ export const AccessibilityIcon = ({ width }: IconProps) => {
   )
 }
 
-export const BlockIcon = ({ width }: IconProps) => (
+export const BlockIcon = ({ width, height }: IconProps) => (
   <svg
     width={width}
+    height={height}
     focusable='false'
     viewBox='0 0 200 28'
     fill='none'
@@ -53,5 +56,41 @@ export const BlockIcon = ({ width }: IconProps) => (
       d='M168.683 27.2618V19.1021L174.629 15.6557H174.852L189.139 27.2578H200L181.114 11.9863L199.478 1.3086H188.278L168.871 12.6875H168.683V1.31256H161.353V27.2618H168.683Z'
       fill='black'
     />
+  </svg>
+)
+
+export const PlayIcon = ({ width, height }: IconProps) => (
+  <svg xmlns='http://www.w3.org/2000/svg' width={width} height={height}>
+    <path d='M8 5v14l11-7z' />
+  </svg>
+)
+
+export const CloseIcon = ({ width, height }: IconProps) => (
+  <svg
+    xmlns='http://www.w3.org/2000/svg'
+    fill='none'
+    viewBox='0 0 24 24'
+    width={width}
+    height={height}
+  >
+    <path
+      stroke='currentColor'
+      strokeLinecap='square'
+      strokeLinejoin='round'
+      strokeWidth={2}
+      d='M18 6 6 18M6 6l12 12'
+    />
+  </svg>
+)
+
+export const MuteIcon = ({ width, height }: IconProps) => (
+  <svg xmlns='http://www.w3.org/2000/svg' width={width} height={height}>
+    <path d='M12 4c3.87 0 7 3.13 7 7v2h-2.92L21 17.92V11a9 9 0 0 0-9-9c-1.95 0-3.76.62-5.23 1.68l1.44 1.44A6.9 6.9 0 0 1 12 4M2.27 1.72 1 3l3.33 3.32A8.9 8.9 0 0 0 3 11v7c0 1.66 1.34 3 3 3h3v-8H5v-2c0-1.17.29-2.26.79-3.22L15 17v4h3c.3 0 .59-.06.86-.14L21 23l1.27-1.27z' />
+  </svg>
+)
+
+export const SoundIcon = ({ width, height }: IconProps) => (
+  <svg xmlns='http://www.w3.org/2000/svg' width={width} height={height}>
+    <path d='M12 3a9 9 0 0 0-9 9v7c0 1.1.9 2 2 2h4v-8H5v-1c0-3.87 3.13-7 7-7s7 3.13 7 7v1h-4v8h4c1.1 0 2-.9 2-2v-7a9 9 0 0 0-9-9' />
   </svg>
 )
