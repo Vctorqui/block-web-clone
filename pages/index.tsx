@@ -11,6 +11,7 @@ import {
   Container,
   Divider,
   IconButton,
+  Stack,
   Typography,
   styled,
 } from '@mui/material'
@@ -23,6 +24,11 @@ const BannerContainer = styled(Box)(() => ({
   display: 'flex',
   flexDirection: 'column',
   justifyContent: 'space-between',
+  minHeight: 'calc(100vh - 40px)',
+  [theme.breakpoints.down('sm')]: {
+    minHeight: 'calc(100vh - 80px)',
+  },
+
   '.canvas': {
     position: 'fixed !important',
     inset: '0 !important',
@@ -30,11 +36,23 @@ const BannerContainer = styled(Box)(() => ({
     pointerEvent: 'none',
     // background: 'rgb(34,193,195)',
     background:
-      'linear-gradient(0deg, rgba(34,193,195,1) 0%, rgba(253,187,45,1) 100%)',
+      'radial-gradient(circle, rgba(34,193,195,1) 44%, rgba(253,71,45,1) 86%)',
   },
 }))
 
 const HeaderBox = styled(Box)(({ theme }) => ({
+  '.headerContainer': {
+    display: 'flex',
+    justifyContent: 'space-between',
+    alignItems: ' center',
+    paddingTop: theme.spacing(4),
+    [theme.breakpoints.down('md')]: {
+      flexDirection: 'column',
+      justifyContent: 'center',
+      gap: '20px',
+    },
+  },
+
   '.iconButton': {
     padding: 0,
     color: '#000',
@@ -48,6 +66,9 @@ const HeaderBox = styled(Box)(({ theme }) => ({
   },
   '.textLink': {
     fontSize: '20px',
+    [theme.breakpoints.down('sm')]: {
+      fontSize: '14px',
+    },
   },
 }))
 
@@ -86,7 +107,7 @@ const Index: NextPage = () => {
         </>
       ) : (
         <Fade>
-          <BannerContainer minHeight={'calc(100vh - 40px)'}>
+          <BannerContainer>
             <Canvas
               className='canvas'
               shadows
@@ -99,13 +120,7 @@ const Index: NextPage = () => {
             </Canvas>
             <HeaderBox>
               <Container maxWidth={'xl'}>
-                <Box
-                  component='div'
-                  display={'flex'}
-                  justifyContent={'space-between'}
-                  alignItems={'center'}
-                  paddingTop={4}
-                >
+                <Box className='headerContainer' component={'div'}>
                   <MusicPlayer />
                   <Box
                     component='div'
@@ -139,29 +154,26 @@ const Index: NextPage = () => {
               }}
               title={'Accessibility'}
             >
-              <Box
-                component={'div'}
-                padding={2}
-                display={'flex'}
-                flexDirection={'column'}
-                gap={1}
+              <Stack
+                // padding={2}
+                spacing={2}
               >
-                <Typography
-                  variant={'h6'}
-                  ml={2}
-                  color={theme.palette.text.secondary}
-                  align='left'
-                >
-                  Use the controls below to customize your web experience.
-                </Typography>
-
+                <Box margin={theme.spacing(2, 0, 3)} component={'div'}>
+                  <Typography
+                    variant={'h6'}
+                    color={theme.palette.text.secondary}
+                    align='left'
+                  >
+                    Use the controls below to customize your web experience.
+                  </Typography>
+                </Box>
                 <Box
                   component={'div'}
                   sx={{ display: 'flex', justifyContent: 'space-between' }}
                 >
                   <Typography
                     variant={'h6'}
-                    ml={2}
+                    // ml={2}
                     color={theme.palette.text.secondary}
                   >
                     Reduce color
@@ -172,14 +184,14 @@ const Index: NextPage = () => {
                     onChange={handleChange}
                   />
                 </Box>
-                <Divider sx={{ background: '#fff' }} />
+                <Divider sx={{ background: '#4c4c4c' }} />
                 <Box
                   component={'div'}
                   sx={{ display: 'flex', justifyContent: 'space-between' }}
                 >
                   <Typography
                     variant={'h6'}
-                    ml={2}
+                    // ml={2}
                     color={theme.palette.text.secondary}
                   >
                     Reduce motion
@@ -190,7 +202,7 @@ const Index: NextPage = () => {
                     onChange={() => setIsPaused(!isPaused)}
                   />
                 </Box>
-              </Box>
+              </Stack>
             </CustomDialog>
             {/* <HomePublicHeader /> */}
             <HomePublicFooter />

@@ -4,15 +4,29 @@ import { LinkBlockStyled } from '@/src/components/LinkStyled'
 import MusicPlayer from '@/src/components/MusicPlayer'
 import { AccessibilityIcon } from '@/src/components/SvgIcon'
 import theme from '@/theme/theme'
-import { Box, Container, Divider, IconButton, Typography, styled } from '@mui/material'
+import {
+  Box,
+  Container,
+  Divider,
+  IconButton,
+  Typography,
+  styled,
+  useMediaQuery,
+} from '@mui/material'
 import React, { useState } from 'react'
 
 const HeaderBox = styled(Box)(({ theme }) => ({
-  // display: 'flex',
-  // justifyContent: 'space-between',
-  // alignItems: 'center',
-  // paddingTop: theme.spacing(4),
-  // position: 'relative',
+  '.headerContainer': {
+    display: 'flex',
+    flexDirection:'row',
+    justifyContent: 'space-between',
+    alignItems: ' center',
+    paddingTop: theme.spacing(4),
+    [theme.breakpoints.down('sm')] : {
+flexDirection: 'column'
+    }
+  },
+
   '.iconButton': {
     padding: 0,
     color: '#000',
@@ -31,23 +45,17 @@ const HeaderBox = styled(Box)(({ theme }) => ({
 
 const HomePublicHeader = () => {
   const [openDialog, setOpenDialog] = useState(false)
-  const [checked, setChecked] = React.useState(true);
+  const [checked, setChecked] = React.useState(true)
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setChecked(event.target.checked);
-  };
+    setChecked(event.target.checked)
+  }
 
   return (
     <>
       <HeaderBox>
         <Container maxWidth={'xl'}>
-          <Box
-            component='div'
-            display={'flex'}
-            justifyContent={'space-between'}
-            alignItems={'center'}
-            paddingTop={4}
-          >
+          <Box className='headerContainer' component='div'>
             <MusicPlayer />
             <Box component='div' display={'flex'} alignItems={'center'} gap={4}>
               <LinkBlockStyled additionalClassName='textLink' href={''}>
@@ -105,7 +113,7 @@ const HomePublicHeader = () => {
             </Typography>
             <CustomCheckbox name={''} value={checked} onChange={handleChange} />
           </Box>
-          <Divider sx={{background:'#fff'}}/>
+          <Divider sx={{ background: '#fff' }} />
           <Box
             component={'div'}
             sx={{ display: 'flex', justifyContent: 'space-between' }}
