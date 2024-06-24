@@ -3,6 +3,7 @@ import React from 'react'
 interface IconProps {
   width?: any
   height?: any
+  additionalClassName?: any
 }
 
 export const AccessibilityIcon = ({ width, height }: IconProps) => {
@@ -20,8 +21,9 @@ export const AccessibilityIcon = ({ width, height }: IconProps) => {
   )
 }
 
-export const BlockIcon = ({ width, height }: IconProps) => (
+export const BlockIcon = ({ width, height, additionalClassName }: IconProps) => (
   <svg
+  style={additionalClassName}
     width={width}
     height={height}
     focusable='false'
@@ -59,8 +61,8 @@ export const BlockIcon = ({ width, height }: IconProps) => (
   </svg>
 )
 
-export const PlayIcon = ({ width, height }: IconProps) => (
-  <svg xmlns='http://www.w3.org/2000/svg' width={width} height={height}>
+export const PlayIcon = ({ width, height, additionalClassName }: IconProps) => (
+  <svg xmlns='http://www.w3.org/2000/svg' width={width} height={height} style={additionalClassName}>
     <path d='M8 5v14l11-7z' />
   </svg>
 )
@@ -89,8 +91,15 @@ export const MuteIcon = ({ width, height }: IconProps) => (
   </svg>
 )
 
-export const SoundIcon = ({ width, height }: IconProps) => (
-  <svg xmlns='http://www.w3.org/2000/svg' width={width} height={height}>
+export const SoundIcon = ({ width, height, additionalClassName }: IconProps) => (
+  <svg xmlns='http://www.w3.org/2000/svg' width={width} height={height} style={additionalClassName}>
     <path d='M12 3a9 9 0 0 0-9 9v7c0 1.1.9 2 2 2h4v-8H5v-1c0-3.87 3.13-7 7-7s7 3.13 7 7v1h-4v8h4c1.1 0 2-.9 2-2v-7a9 9 0 0 0-9-9' />
   </svg>
 )
+
+
+export const TidalIcon = ({ width, height, additionalClassName }: IconProps)  => (
+  <svg xmlns="http://www.w3.org/2000/svg" width={width} height={height} style={additionalClassName}>
+    <path d="M4 4 0 8l4 4 4-4 4 4-4 4 4 4 4-4-4-4 4-4 4 4 4-4-4-4-4 4-4-4-4 4z" />
+  </svg>
+);

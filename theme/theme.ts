@@ -61,7 +61,7 @@ const theme = responsiveFontSizes(
           outlinedPrimary: {
             // fontWeight: '700',
             border: 'solid 1px #000',
-            borderRadius: 20,
+            borderRadius: 40,
             position: 'relative',
             color: colors.text.primary,
             background: 'transparent',

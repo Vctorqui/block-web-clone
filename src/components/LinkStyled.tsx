@@ -14,6 +14,7 @@ const LinkStyled = styled(Link)(({ theme }) => ({
   transition: 'all .2s ease-out',
   fontWeight: 800,
   position: 'relative',
+  pointerEvents:'all',
   '&:after': {
     content: '""',
     bottom: '-3px',

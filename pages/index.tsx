@@ -1,47 +1,203 @@
-import HomePublicLayout from '@/src/layouts/HomePublic'
-import { Box, Container, styled } from '@mui/material'
-import { Environment, OrbitControls } from '@react-three/drei'
+import CustomCheckbox from '@/src/components/CustomCheckBox'
+import CustomDialog from '@/src/components/CustomDialog'
+import { LinkBlockStyled } from '@/src/components/LinkStyled'
+import MusicPlayer from '@/src/components/MusicPlayer'
+import { AccessibilityIcon, BlockIcon } from '@/src/components/SvgIcon'
+import HomePublicFooter from '@/src/layouts/homePublic/Footer'
+import HomeScene from '@/src/scene/HomeScene'
+import theme from '@/theme/theme'
+import {
+  Box,
+  Container,
+  Divider,
+  IconButton,
+  Typography,
+  styled,
+} from '@mui/material'
 import { Canvas } from '@react-three/fiber'
 import { NextPage } from 'next'
-import React from 'react'
+import React, { useEffect, useState } from 'react'
+import { Fade } from 'react-awesome-reveal'
 
-const BannerContainer = styled(Box)(({ theme }) => ({
-  // position: 'relative',
-  // height: '100vh',
-  // backgroundColor: 'rgb(238, 174, 202)',
-  // [theme.breakpoints.down('sm')]: {
-  //   height: 'calc(100vh - 380px)',
-  // },
+const BannerContainer = styled(Box)(() => ({
+  display: 'flex',
+  flexDirection: 'column',
+  justifyContent: 'space-between',
   '.canvas': {
     position: 'fixed !important',
     inset: '0 !important',
+    // background: 'rgb(238, 174, 202)',
+    pointerEvent: 'none',
+    // background: 'rgb(34,193,195)',
+    background:
+      'linear-gradient(0deg, rgba(34,193,195,1) 0%, rgba(253,187,45,1) 100%)',
+  },
+}))
+
+const HeaderBox = styled(Box)(({ theme }) => ({
+  '.iconButton': {
+    padding: 0,
+    color: '#000',
+    background: 'transparent',
+    cursor: 'pointer',
+    transition: 'color .2s ease-out',
+    marginBottom: '8px',
+    '&:hover': {
+      color: theme.palette.text.secondary,
+    },
+  },
+  '.textLink': {
+    fontSize: '20px',
   },
 }))
 
 const Index: NextPage = () => {
+  const [checked, setChecked] = React.useState(true)
+  const [isLoading, setIsLoading] = useState(true)
+  const [isPaused, setIsPaused] = useState(false)
+  // Lógica de la animación
+  const animationSpeed = isPaused ? 0 : 1 // Velocidad de la animación (0 para pausar)
+  const animationFactor = isPaused ? 1 : 1.5 // Factor de deformación (1 para pausar)
+  const [openDialog, setOpenDialog] = useState(false)
+
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setChecked(event.target.checked)
+  }
+  useEffect(() => {
+    // Simula una carga de datos o una petición a una API
+    setTimeout(() => {
+      setIsLoading(false)
+    }, 2000) // Cambia el tiempo según tus necesidades
+  }, [])
+
   return (
-    // <BannerContainer>
-    //   <HomePublicLayout>
-    //     <Container maxWidth={'xl'}>
-    <BannerContainer>
-      <HomePublicLayout>
+    <>
+      {isLoading ? (
+        <>
+          <Box
+            component={'div'}
+            display={'flex'}
+            justifyContent={'center'}
+            alignItems={'center'}
+            height={'100vh'}
+          >
+            <BlockIcon width={'200px'} height={'200px'} />
+          </Box>
+        </>
+      ) : (
+        <Fade>
+          <BannerContainer minHeight={'calc(100vh - 40px)'}>
+            <Canvas
+              className='canvas'
+              shadows
+              camera={{ position: [-50, 50, 100], fov: 2 }}
+            >
+              <HomeScene
+                animationFactor={animationFactor}
+                animationSpeed={animationSpeed}
+              />
+            </Canvas>
+            <HeaderBox>
+              <Container maxWidth={'xl'}>
+                <Box
+                  component='div'
+                  display={'flex'}
+                  justifyContent={'space-between'}
+                  alignItems={'center'}
+                  paddingTop={4}
+                >
+                  <MusicPlayer />
+                  <Box
+                    component='div'
+                    display={'flex'}
+                    alignItems={'center'}
+                    gap={4}
+                  >
+                    <LinkBlockStyled additionalClassName='textLink' href={''}>
+                      NEWS
+                    </LinkBlockStyled>
+                    <LinkBlockStyled additionalClassName='textLink' href={''}>
+                      CARRERS
+                    </LinkBlockStyled>
+                    <LinkBlockStyled additionalClassName='textLink' href={''}>
+                      INVENTORS
+                    </LinkBlockStyled>
+                    <IconButton
+                      onClick={() => setOpenDialog(true)}
+                      className='iconButton'
+                    >
+                      <AccessibilityIcon width={'20px'} />
+                    </IconButton>
+                  </Box>
+                </Box>
+              </Container>
+            </HeaderBox>
+            <CustomDialog
+              open={openDialog}
+              onClose={() => {
+                setOpenDialog(false)
+              }}
+              title={'Accessibility'}
+            >
+              <Box
+                component={'div'}
+                padding={2}
+                display={'flex'}
+                flexDirection={'column'}
+                gap={1}
+              >
+                <Typography
+                  variant={'h6'}
+                  ml={2}
+                  color={theme.palette.text.secondary}
+                  align='left'
+                >
+                  Use the controls below to customize your web experience.
+                </Typography>
 
-      <Canvas className='canvas'>
-        <OrbitControls />
-        <Environment preset='sunset' />
-        <ambientLight />
-        <mesh>
-          <boxGeometry />
-          <meshStandardMaterial color={'#f00'} />
-        </mesh>
-      </Canvas>
-      </HomePublicLayout>
-    </BannerContainer>
-
-    //     </Container>
-    //   </HomePublicLayout>
-    // </BannerContainer>
+                <Box
+                  component={'div'}
+                  sx={{ display: 'flex', justifyContent: 'space-between' }}
+                >
+                  <Typography
+                    variant={'h6'}
+                    ml={2}
+                    color={theme.palette.text.secondary}
+                  >
+                    Reduce color
+                  </Typography>
+                  <CustomCheckbox
+                    name={'checkbox1'}
+                    value={checked}
+                    onChange={handleChange}
+                  />
+                </Box>
+                <Divider sx={{ background: '#fff' }} />
+                <Box
+                  component={'div'}
+                  sx={{ display: 'flex', justifyContent: 'space-between' }}
+                >
+                  <Typography
+                    variant={'h6'}
+                    ml={2}
+                    color={theme.palette.text.secondary}
+                  >
+                    Reduce motion
+                  </Typography>
+                  <CustomCheckbox
+                    name={'checkbox2'}
+                    value={checked}
+                    onChange={() => setIsPaused(!isPaused)}
+                  />
+                </Box>
+              </Box>
+            </CustomDialog>
+            {/* <HomePublicHeader /> */}
+            <HomePublicFooter />
+          </BannerContainer>
+        </Fade>
+      )}
+    </>
   )
 }
-
 export default Index

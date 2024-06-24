@@ -1,16 +1,18 @@
+import CustomCheckbox from '@/src/components/CustomCheckBox'
+import CustomDialog from '@/src/components/CustomDialog'
 import { LinkBlockStyled } from '@/src/components/LinkStyled'
 import MusicPlayer from '@/src/components/MusicPlayer'
 import { AccessibilityIcon } from '@/src/components/SvgIcon'
-import { Box, Button, Container, IconButton, styled } from '@mui/material'
-import Link from 'next/link'
-import React from 'react'
+import theme from '@/theme/theme'
+import { Box, Container, Divider, IconButton, Typography, styled } from '@mui/material'
+import React, { useState } from 'react'
 
 const HeaderBox = styled(Box)(({ theme }) => ({
-  display: 'flex',
-  justifyContent: 'space-between',
-  alignItems: 'center',
-  paddingTop: theme.spacing(4),
-  position: 'relative',
+  // display: 'flex',
+  // justifyContent: 'space-between',
+  // alignItems: 'center',
+  // paddingTop: theme.spacing(4),
+  // position: 'relative',
   '.iconButton': {
     padding: 0,
     color: '#000',
@@ -22,47 +24,104 @@ const HeaderBox = styled(Box)(({ theme }) => ({
       color: theme.palette.text.secondary,
     },
   },
-  '.line': {
-    position: 'relative',
-    '&:after': {
-      content: '""',
-      bottom: -10,
-      width: '100px',
-      height: '4px',
-      position: 'absolute',
-      borderRadius: '2px',
-      left: '50%',
-      transform: 'translate(-50%, 0)',
-      transition: 'background .2s ease-out',
-      background: '#000',
-    },
-  },
   '.textLink': {
     fontSize: '20px',
   },
 }))
 
 const HomePublicHeader = () => {
+  const [openDialog, setOpenDialog] = useState(false)
+  const [checked, setChecked] = React.useState(true);
+
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setChecked(event.target.checked);
+  };
+
   return (
-    <Container maxWidth={'xl'}>
+    <>
       <HeaderBox>
-        <MusicPlayer />
-        <Box component='div' display={'flex'} alignItems={'center'} gap={4}>
-          <LinkBlockStyled additionalClassName='textLink' href={''}>
-            NEWS
-          </LinkBlockStyled>
-          <LinkBlockStyled additionalClassName='textLink' href={''}>
-            CARRERS
-          </LinkBlockStyled>
-          <LinkBlockStyled additionalClassName='textLink' href={''}>
-            INVENTORS
-          </LinkBlockStyled>
-          <IconButton className='iconButton'>
-            <AccessibilityIcon width={'20px'} />
-          </IconButton>
-        </Box>
+        <Container maxWidth={'xl'}>
+          <Box
+            component='div'
+            display={'flex'}
+            justifyContent={'space-between'}
+            alignItems={'center'}
+            paddingTop={4}
+          >
+            <MusicPlayer />
+            <Box component='div' display={'flex'} alignItems={'center'} gap={4}>
+              <LinkBlockStyled additionalClassName='textLink' href={''}>
+                NEWS
+              </LinkBlockStyled>
+              <LinkBlockStyled additionalClassName='textLink' href={''}>
+                CARRERS
+              </LinkBlockStyled>
+              <LinkBlockStyled additionalClassName='textLink' href={''}>
+                INVENTORS
+              </LinkBlockStyled>
+              <IconButton
+                onClick={() => setOpenDialog(true)}
+                className='iconButton'
+              >
+                <AccessibilityIcon width={'20px'} />
+              </IconButton>
+            </Box>
+          </Box>
+        </Container>
       </HeaderBox>
-    </Container>
+      <CustomDialog
+        open={openDialog}
+        onClose={() => {
+          setOpenDialog(false)
+        }}
+        title={'Accessibility'}
+      >
+        <Box
+          component={'div'}
+          padding={2}
+          display={'flex'}
+          flexDirection={'column'}
+          gap={1}
+        >
+          <Typography
+            variant={'h6'}
+            ml={2}
+            color={theme.palette.text.secondary}
+            align='left'
+          >
+            Use the controls below to customize your web experience.
+          </Typography>
+
+          <Box
+            component={'div'}
+            sx={{ display: 'flex', justifyContent: 'space-between' }}
+          >
+            <Typography
+              variant={'h6'}
+              ml={2}
+              color={theme.palette.text.secondary}
+            >
+              Reduce color
+            </Typography>
+            <CustomCheckbox name={''} value={checked} onChange={handleChange} />
+          </Box>
+          <Divider sx={{background:'#fff'}}/>
+          <Box
+            component={'div'}
+            sx={{ display: 'flex', justifyContent: 'space-between' }}
+          >
+            <Typography
+              variant={'h6'}
+              ml={2}
+              color={theme.palette.text.secondary}
+            >
+              Reduce motion
+            </Typography>
+            <CustomCheckbox name={''} value={checked} onChange={handleChange} />
+          </Box>
+        </Box>
+      </CustomDialog>
+    </>
   )
 }
 
