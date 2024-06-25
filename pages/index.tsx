@@ -1,16 +1,13 @@
 import CustomDialog from '@/src/components/CustomDialog'
-import { LinkBlockStyled } from '@/src/components/LinkStyled'
-import MusicPlayer from '@/src/components/MusicPlayer'
-import { AccessibilityIcon, BlockIcon } from '@/src/components/SvgIcon'
+import { BlockIcon } from '@/src/components/SvgIcon'
 import HomePublicFooter from '@/src/layouts/homePublic/Footer'
+import HomePublicHeader from '@/src/layouts/homePublic/Header'
 import HomeScene from '@/src/scene/HomeScene'
 import theme from '@/theme/theme'
 import {
   Box,
   Checkbox,
-  Container,
   Divider,
-  IconButton,
   Typography,
   styled,
 } from '@mui/material'
@@ -37,45 +34,13 @@ const BannerContainer = styled(Box)(() => ({
   },
 }))
 
-const HeaderBox = styled(Box)(({ theme }) => ({
-  '.headerContainer': {
-    display: 'flex',
-    justifyContent: 'space-between',
-    alignItems: ' center',
-    paddingTop: theme.spacing(4),
-    [theme.breakpoints.down('md')]: {
-      flexDirection: 'column',
-      justifyContent: 'center',
-      gap: '20px',
-    },
-  },
-
-  '.iconButton': {
-    padding: 0,
-    color: '#000',
-    background: 'transparent',
-    cursor: 'pointer',
-    transition: 'color .2s ease-out',
-    marginBottom: '8px',
-    '&:hover': {
-      color: theme.palette.text.secondary,
-    },
-  },
-  '.textLink': {
-    fontSize: '20px',
-    [theme.breakpoints.down('sm')]: {
-      fontSize: '14px',
-    },
-  },
-}))
-
 const Index: NextPage = () => {
   const [isLoading, setIsLoading] = useState(true)
   const [isPaused, setIsPaused] = useState(false)
   // Lógica de la animación
   const animationSpeed = isPaused ? 0 : 1 // Velocidad de la animación (0 para pausar)
   const animationFactor = isPaused ? 1 : 1.5 // Factor de deformación (1 para pausar)
-  const [openDialog, setOpenDialog] = useState(false)
+  const [isOpenDialog, setIsOpenDialog] = useState(false)
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setIsPaused(event.target.checked)
@@ -114,42 +79,15 @@ const Index: NextPage = () => {
               animationFactor={animationFactor}
               animationSpeed={animationSpeed}
             />
+            {/* <TestScene/> */}
           </Canvas>
           <Fade delay={500}>
-            <HeaderBox>
-              <Container maxWidth={'xl'}>
-                <Box className='headerContainer' component={'div'}>
-                  <MusicPlayer />
-                  <Box
-                    component='div'
-                    display={'flex'}
-                    alignItems={'center'}
-                    gap={4}
-                  >
-                    <LinkBlockStyled additionalClassName='textLink' href={''}>
-                      NEWS
-                    </LinkBlockStyled>
-                    <LinkBlockStyled additionalClassName='textLink' href={''}>
-                      CARRERS
-                    </LinkBlockStyled>
-                    <LinkBlockStyled additionalClassName='textLink' href={''}>
-                      INVENTORS
-                    </LinkBlockStyled>
-                    <IconButton
-                      onClick={() => setOpenDialog(true)}
-                      className='iconButton'
-                    >
-                      <AccessibilityIcon width={'20px'} />
-                    </IconButton>
-                  </Box>
-                </Box>
-              </Container>
-            </HeaderBox>
+            <HomePublicHeader openDialog={() => setIsOpenDialog(true)} />
           </Fade>
           <CustomDialog
-            open={openDialog}
+            open={isOpenDialog}
             onClose={() => {
-              setOpenDialog(false)
+              setIsOpenDialog(false)
             }}
             title={'Accessibility'}
           >
@@ -172,11 +110,7 @@ const Index: NextPage = () => {
                 component={'div'}
                 sx={{ display: 'flex', justifyContent: 'space-between' }}
               >
-                <Typography
-                  variant={'h6'}
-                  // ml={2}
-                  color={theme.palette.text.secondary}
-                >
+                <Typography variant={'h6'} color={theme.palette.text.secondary}>
                   Reduce color
                 </Typography>
                 <Checkbox name={'checkbox1'} onChange={handleChange} />
@@ -186,11 +120,7 @@ const Index: NextPage = () => {
                 component={'div'}
                 sx={{ display: 'flex', justifyContent: 'space-between' }}
               >
-                <Typography
-                  variant={'h6'}
-                  // ml={2}
-                  color={theme.palette.text.secondary}
-                >
+                <Typography variant={'h6'} color={theme.palette.text.secondary}>
                   Reduce motion
                 </Typography>
                 <Checkbox
@@ -206,7 +136,6 @@ const Index: NextPage = () => {
               </Box>
             </Box>
           </CustomDialog>
-          {/* <HomePublicHeader /> */}
           <Fade delay={500}>
             <HomePublicFooter />
           </Fade>
