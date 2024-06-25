@@ -1,18 +1,8 @@
-import CustomDialog from '@/src/components/CustomDialog'
 import { LinkBlockStyled } from '@/src/components/LinkStyled'
 import MusicPlayer from '@/src/components/MusicPlayer'
 import { AccessibilityIcon } from '@/src/components/SvgIcon'
-import theme from '@/theme/theme'
-import {
-  Box,
-  Container,
-  Divider,
-  IconButton,
-  Typography,
-  styled,
-  useMediaQuery,
-} from '@mui/material'
-import React, { useState } from 'react'
+import { Box, Container, IconButton, styled } from '@mui/material'
+import React from 'react'
 
 const HeaderBox = styled(Box)(({ theme }) => ({
   '.headerContainer': {
@@ -46,39 +36,30 @@ const HeaderBox = styled(Box)(({ theme }) => ({
   },
 }))
 
-const HomePublicHeader = ({openDialog}: any) => {
-
+const HomePublicHeader = ({ openDialog }: any) => {
   return (
     <>
-       <HeaderBox >
-              <Container maxWidth={'xl'}>
-                <Box className='headerContainer' component={'div'}>
-                  <MusicPlayer />
-                  <Box
-                    component='div'
-                    display={'flex'}
-                    alignItems={'center'}
-                    gap={4}
-                  >
-                    <LinkBlockStyled additionalClassName='textLink' href={''}>
-                      NEWS
-                    </LinkBlockStyled>
-                    <LinkBlockStyled additionalClassName='textLink' href={''}>
-                      CARRERS
-                    </LinkBlockStyled>
-                    <LinkBlockStyled additionalClassName='textLink' href={''}>
-                      INVENTORS
-                    </LinkBlockStyled>
-                    <IconButton
-                      onClick={openDialog}
-                      className='iconButton'
-                    >
-                      <AccessibilityIcon width={'20px'} />
-                    </IconButton>
-                  </Box>
-                </Box>
-              </Container>
-            </HeaderBox>
+      <HeaderBox>
+        <Container maxWidth={'xl'}>
+          <Box className='headerContainer' component={'div'}>
+            <MusicPlayer />
+            <Box component='div' display={'flex'} alignItems={'center'} gap={4}>
+              <LinkBlockStyled additionalClassName='textLink' href={''}>
+                NEWS
+              </LinkBlockStyled>
+              <LinkBlockStyled additionalClassName='textLink' href={''}>
+                CARRERS
+              </LinkBlockStyled>
+              <LinkBlockStyled additionalClassName='textLink' href={''}>
+                INVENTORS
+              </LinkBlockStyled>
+              <IconButton onClick={openDialog} className='iconButton'>
+                <AccessibilityIcon width={'20px'} />
+              </IconButton>
+            </Box>
+          </Box>
+        </Container>
+      </HeaderBox>
     </>
   )
 }

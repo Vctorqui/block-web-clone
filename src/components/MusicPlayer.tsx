@@ -67,7 +67,7 @@ const MusicPlayer = () => {
   }
 
   // Utilizamos el operador opcional de encadenamiento (?.) para acceder a las propiedades y
-  // métodos de audioRef.current solo si audioRef.current no es nulo. Esto debería evitar el error
+  // métodos de audioRef.current solo si audioRef.current no es nulo.
 
   // El error “Property ‘pause’ does not exist on type ‘never’ esto se debe a que TypeScript no puede inferir
   //correctamente el tipo de audioRef.current. Para resolverlo, puedes especificar explícitamente el tipo de
@@ -117,35 +117,34 @@ const MusicPlayer = () => {
               )}
               {textPlayer === 'secondText' && (
                 <Fade>
+                  <Stack alignItems={'flex-start'}>
+                    <Typography
+                      fontSize={'11px'}
+                      fontWeight={900}
+                      variant='body1'
+                    >
+                      {item.title}
+                    </Typography>
+                    <Typography fontSize={'11px'} variant='body1'>
+                      {item.artist}
+                    </Typography>
+                  </Stack>
+                </Fade>
+              )}
+              {textPlayer === 'thirdText' && (
                 <Stack alignItems={'flex-start'}>
                   <Typography
                     fontSize={'11px'}
                     fontWeight={900}
                     variant='body1'
                   >
-                    {item.title}
+                    Full playlist on TIDAL
                   </Typography>
                   <Typography fontSize={'11px'} variant='body1'>
-                    {item.artist}
-                  </Typography>
-                </Stack>
-                </Fade>
-              )}
-              {textPlayer === 'thirdText' && (
-                <Stack alignItems={'flex-start'}>
-                <Typography
-                  fontSize={'11px'}
-                  fontWeight={900}
-                  variant='body1'
-                >
-                 Full playlist on TIDAL
-                </Typography>
-                <Typography fontSize={'11px'} variant='body1'>
                     Curated by JAY-Z
                   </Typography>
-              </Stack>
+                </Stack>
               )}
-              
             </Box>
             {currentSong && (
               <audio ref={audioRef} autoPlay>
@@ -155,8 +154,8 @@ const MusicPlayer = () => {
             )}
           </Button>
           <Link
-           onMouseEnter={() => setTextPlayer('thirdText')}
-           onMouseLeave={() => setTextPlayer('firstText')}
+            onMouseEnter={() => setTextPlayer('thirdText')}
+            onMouseLeave={() => setTextPlayer('firstText')}
             className='linkButton'
             href={
               'https://tidal.com/browse/playlist/3d95c4f6-dad5-4d7f-a469-8bde01b7771d'

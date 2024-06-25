@@ -3,14 +3,9 @@ import { BlockIcon } from '@/src/components/SvgIcon'
 import HomePublicFooter from '@/src/layouts/homePublic/Footer'
 import HomePublicHeader from '@/src/layouts/homePublic/Header'
 import HomeScene from '@/src/scene/HomeScene'
+import TestScene from '@/src/scene/TestScene'
 import theme from '@/theme/theme'
-import {
-  Box,
-  Checkbox,
-  Divider,
-  Typography,
-  styled,
-} from '@mui/material'
+import { Box, Checkbox, Divider, Typography, styled } from '@mui/material'
 import { Canvas } from '@react-three/fiber'
 import { NextPage } from 'next'
 import React, { useEffect, useState } from 'react'
@@ -34,6 +29,18 @@ const BannerContainer = styled(Box)(() => ({
   },
 }))
 
+const CheckBoxContainer = styled(Box)(() => ({
+  display: 'flex',
+  flexDirection: 'column',
+  gap: theme.spacing(2),
+
+  '.checkboxes': {
+    display: 'flex',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+  },
+}))
+
 const Index: NextPage = () => {
   const [isLoading, setIsLoading] = useState(true)
   const [isPaused, setIsPaused] = useState(false)
@@ -46,10 +53,10 @@ const Index: NextPage = () => {
     setIsPaused(event.target.checked)
   }
   useEffect(() => {
-    // Simula una carga de datos o una petición a una API
+    // Simula una carga de datos
     setTimeout(() => {
       setIsLoading(false)
-    }, 2000) // Cambia el tiempo según tus necesidades
+    }, 2000) // tiempo
   }, [])
 
   return (
@@ -75,11 +82,11 @@ const Index: NextPage = () => {
             shadows
             camera={{ position: [-50, 50, 100], fov: 2.5 }}
           >
-            <HomeScene
+            {/* <HomeScene
               animationFactor={animationFactor}
               animationSpeed={animationSpeed}
-            />
-            {/* <TestScene/> */}
+            /> */}
+            <TestScene />
           </Canvas>
           <Fade delay={500}>
             <HomePublicHeader openDialog={() => setIsOpenDialog(true)} />
@@ -91,12 +98,7 @@ const Index: NextPage = () => {
             }}
             title={'Accessibility'}
           >
-            <Box
-              component={'div'}
-              display={'flex'}
-              flexDirection={'column'}
-              gap={2}
-            >
+            <CheckBoxContainer component={'div'}>
               <Box margin={theme.spacing(2, 0, 3)} component={'div'}>
                 <Typography
                   variant={'h6'}
@@ -106,20 +108,22 @@ const Index: NextPage = () => {
                   Use the controls below to customize your web experience.
                 </Typography>
               </Box>
-              <Box
-                component={'div'}
-                sx={{ display: 'flex', justifyContent: 'space-between' }}
-              >
+              <Box className='checkboxes' component={'div'}>
                 <Typography variant={'h6'} color={theme.palette.text.secondary}>
                   Reduce color
                 </Typography>
-                <Checkbox name={'checkbox1'} onChange={handleChange} />
+                <Checkbox
+                  sx={{
+                    color: '#fff',
+                    '&.Mui-checked': {
+                      color: '#fff',
+                    },
+                  }}
+                  onChange={handleChange}
+                />
               </Box>
               <Divider sx={{ background: '#4c4c4c' }} />
-              <Box
-                component={'div'}
-                sx={{ display: 'flex', justifyContent: 'space-between' }}
-              >
+              <Box className='checkboxes' component={'div'}>
                 <Typography variant={'h6'} color={theme.palette.text.secondary}>
                   Reduce motion
                 </Typography>
@@ -134,7 +138,7 @@ const Index: NextPage = () => {
                   onChange={handleChange}
                 />
               </Box>
-            </Box>
+            </CheckBoxContainer>
           </CustomDialog>
           <Fade delay={500}>
             <HomePublicFooter />
