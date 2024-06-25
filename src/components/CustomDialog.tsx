@@ -21,7 +21,6 @@ interface customDialogTypes extends DialogProps {
 
 const BoxClose = styled(Box)(({ theme }) => ({
   position: 'absolute',
-  // top: 2,
   right: 2,
 }))
 

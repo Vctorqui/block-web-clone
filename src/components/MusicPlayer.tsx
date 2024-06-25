@@ -25,7 +25,6 @@ const MusicPlayerBox = styled(Box)(({ theme }) => ({
 
 const MusicPlayer = () => {
   // create an audio
-  const [songs, setSongs] = useState([])
   const [currentSong, setCurrentSong] = useState<string | null>(null)
   const [isPlaying, setIsPlaying] = useState(false)
   const audioRef = useRef<HTMLAudioElement | null>(null) // Especifica el tipo
@@ -69,7 +68,7 @@ const MusicPlayer = () => {
   // Utilizamos el operador opcional de encadenamiento (?.) para acceder a las propiedades y
   // métodos de audioRef.current solo si audioRef.current no es nulo.
 
-  // El error “Property ‘pause’ does not exist on type ‘never’ esto se debe a que TypeScript no puede inferir
+  // El error “Property ‘pause’ does not exist on type ‘never’ se debe a que TypeScript no puede inferir
   //correctamente el tipo de audioRef.current. Para resolverlo, puedes especificar explícitamente el tipo de
   //audioRef como HTMLAudioElement | null
 

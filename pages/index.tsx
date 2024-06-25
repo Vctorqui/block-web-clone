@@ -46,7 +46,6 @@ const Index: NextPage = () => {
   const animationSpeed = isPaused ? 0 : 1 // Velocidad de la animación (0 para pausar)
   const animationFactor = isPaused ? 1 : 1.5 // Factor de deformación (1 para pausar)
   const [isOpenDialog, setIsOpenDialog] = useState(false)
-  const [backgroundColor, setBackgroundColor] = useState('#ffffff')
   const [checkBg, setCheckBg] = useState(false)
 
   const handleBgChange = (event: React.ChangeEvent<HTMLInputElement>) => {
