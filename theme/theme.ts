@@ -39,7 +39,7 @@ const theme = responsiveFontSizes(
       },
     },
     typography: {
-      fontFamily: ['NeueMachina', 'Helvetica', 'Arial'].join(','),
+      fontFamily: ['PilatExtented', 'Helvetica', 'Arial'].join(','),
       // h1: {
       //   fontSize: '4.375rem',
       //   fontFamily: 'Nulshock'
@@ -89,14 +89,30 @@ const theme = responsiveFontSizes(
           @font-face {
             font-family: 'NeueMachina';
             font-weight: 400;
-            src: local('Saira'), url(/fonts/neueMachina/NeueMachina-Regular.ttf) format('truetype');
+            src: local('NeuMachina'), url(/fonts/neueMachina/NeueMachina-Regular.ttf) format('truetype');
           }
           @font-face {
             font-family: 'NeueMachina';
             font-weight: 800;
-            src: local('Saira'), url(/fonts/neueMachina/NeueMachina-Ultrabold.ttf) format('truetype');
-          }
+            src: local('NeuMachina'), url(/fonts/neueMachina/NeueMachina-Ultrabold.ttf) format('truetype');
+          },
+          @font-face {
+            font-family: 'PilatExtended';
+            font-weight: 300;
+            src: local('PilatExtended'), url(/fonts/pilat/PilatExtended-Light.ttf) format('truetype');
+          },
+          @font-face {
+            font-family: 'PilatExtended';
+            font-weight: 400;
+            src: local('PilatExtended'), url(/fonts/pilat/PilatExtended-Regular.ttf) format('truetype');
+          },
+          @font-face {
+            font-family: 'PilatExtended';
+            font-weight: 800;
+            src: local('PilatExtended'), url(/fonts/pilat/PilatExtended-Bold.ttf) format('truetype');
+          },
         `,
+        
       },
     },
   })

@@ -3,6 +3,7 @@ import data from '../mocks/data'
 import { Box, Button, Stack, Typography, styled } from '@mui/material'
 import { MuteIcon, PlayIcon, SoundIcon, TidalIcon } from './SvgIcon'
 import Link from 'next/link'
+import { Fade } from 'react-awesome-reveal'
 
 const MusicPlayerBox = styled(Box)(({ theme }) => ({
   '.linkButton': {
@@ -28,8 +29,8 @@ const MusicPlayer = () => {
   const [currentSong, setCurrentSong] = useState<string | null>(null)
   const [isPlaying, setIsPlaying] = useState(false)
   const audioRef = useRef<HTMLAudioElement | null>(null) // Especifica el tipo
-
   const [iconState, setIconState] = useState('play') // Estado inicial: 'play'
+  const [textPlayer, setTextPlayer] = useState('firstText')
 
   const handlePlay = (songUrl: string) => {
     if (currentSong === songUrl) {
@@ -53,6 +54,14 @@ const MusicPlayer = () => {
         return 'mute'
       } else {
         return 'sound'
+      }
+    })
+
+    setTextPlayer((prevText): any => {
+      if (prevText === 'firstText') {
+        return 'secondText'
+      } else if (prevText === 'secondText') {
+        return 'secondText'
       }
     })
   }
@@ -83,19 +92,46 @@ const MusicPlayer = () => {
                 <PlayIcon width={'25px'} height={'25px'} />
               )}
               {iconState === 'sound' && (
-                <SoundIcon width={'25px'} height={'25px'} />
+                <Fade>
+                  <SoundIcon width={'25px'} height={'25px'} />
+                </Fade>
               )}
               {iconState === 'mute' && (
-                <MuteIcon width={'25px'} height={'25px'} />
+                <Fade>
+                  <MuteIcon width={'25px'} height={'25px'} />
+                </Fade>
               )}
-              <Stack alignItems={'flex-start'}>
-                <Typography fontSize={'11px'} fontWeight={900} variant='body1'>
-                  {item.title}
-                </Typography>
-                <Typography fontSize={'11px'} variant='body1'>
-                  {item.artist}
-                </Typography>
-              </Stack>
+              {textPlayer === 'firstText' && (
+                <Stack alignItems={'flex-start'}>
+                  <Typography
+                    fontSize={'11px'}
+                    fontWeight={900}
+                    variant='body1'
+                  >
+                    Block Vibes
+                  </Typography>
+                  <Typography fontSize={'11px'} variant='body1'>
+                    Curated by JAY-Z
+                  </Typography>
+                </Stack>
+              )}
+              {textPlayer === 'secondText' && (
+                <Fade>
+                <Stack alignItems={'flex-start'}>
+                  <Typography
+                    fontSize={'11px'}
+                    fontWeight={900}
+                    variant='body1'
+                  >
+                    {item.title}
+                  </Typography>
+                  <Typography fontSize={'11px'} variant='body1'>
+                    {item.artist}
+                  </Typography>
+                </Stack>
+                </Fade>
+              )}
+              
             </Box>
             {currentSong && (
               <audio ref={audioRef} autoPlay>

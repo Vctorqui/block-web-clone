@@ -1,4 +1,3 @@
-import CustomCheckbox from '@/src/components/CustomCheckBox'
 import CustomDialog from '@/src/components/CustomDialog'
 import { LinkBlockStyled } from '@/src/components/LinkStyled'
 import MusicPlayer from '@/src/components/MusicPlayer'
@@ -8,6 +7,7 @@ import HomeScene from '@/src/scene/HomeScene'
 import theme from '@/theme/theme'
 import {
   Box,
+  Checkbox,
   Container,
   Divider,
   IconButton,
@@ -35,8 +35,9 @@ const BannerContainer = styled(Box)(() => ({
     // background: 'rgb(238, 174, 202)',
     pointerEvent: 'none',
     // background: 'rgb(34,193,195)',
-    background:
-      'radial-gradient(circle, rgba(34,193,195,1) 44%, rgba(253,71,45,1) 86%)',
+    // background:
+    //   'radial-gradient(circle, rgba(34,193,195,1) 44%, rgba(253,71,45,1) 86%)',
+background: 'linear-gradient(270deg, rgba(195,34,34,1) 39%, rgba(59,168,170,1) 73%, rgba(34,193,195,1) 90%)'
   },
 }))
 
@@ -73,7 +74,7 @@ const HeaderBox = styled(Box)(({ theme }) => ({
 }))
 
 const Index: NextPage = () => {
-  const [checked, setChecked] = React.useState(true)
+  const [isChecked, setIsChecked] = useState(true)
   const [isLoading, setIsLoading] = useState(true)
   const [isPaused, setIsPaused] = useState(false)
   // Lógica de la animación
@@ -81,8 +82,12 @@ const Index: NextPage = () => {
   const animationFactor = isPaused ? 1 : 1.5 // Factor de deformación (1 para pausar)
   const [openDialog, setOpenDialog] = useState(false)
 
+  // const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  //   setChecked(event.target.checked)
+  // }
+
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setChecked(event.target.checked)
+    setIsPaused(event.target.checked)
   }
   useEffect(() => {
     // Simula una carga de datos o una petición a una API
@@ -95,29 +100,31 @@ const Index: NextPage = () => {
     <>
       {isLoading ? (
         <>
-          <Box
-            component={'div'}
-            display={'flex'}
-            justifyContent={'center'}
-            alignItems={'center'}
-            height={'100vh'}
-          >
-            <BlockIcon width={'200px'} height={'200px'} />
-          </Box>
+          <Fade>
+            <Box
+              component={'div'}
+              display={'flex'}
+              justifyContent={'center'}
+              alignItems={'center'}
+              height={'100vh'}
+            >
+              <BlockIcon width={'200px'} height={'200px'} />
+            </Box>
+          </Fade>
         </>
       ) : (
-        <Fade>
-          <BannerContainer>
-            <Canvas
-              className='canvas'
-              shadows
-              camera={{ position: [-50, 50, 100], fov: 2 }}
-            >
-              <HomeScene
-                animationFactor={animationFactor}
-                animationSpeed={animationSpeed}
-              />
-            </Canvas>
+        <BannerContainer>
+          <Canvas
+            className='canvas'
+            shadows
+            camera={{ position: [-50, 50, 100], fov: 2 }}
+          >
+            <HomeScene
+              animationFactor={animationFactor}
+              animationSpeed={animationSpeed}
+            />
+          </Canvas>
+          <Fade delay={500}>
             <HeaderBox>
               <Container maxWidth={'xl'}>
                 <Box className='headerContainer' component={'div'}>
@@ -147,67 +154,72 @@ const Index: NextPage = () => {
                 </Box>
               </Container>
             </HeaderBox>
-            <CustomDialog
-              open={openDialog}
-              onClose={() => {
-                setOpenDialog(false)
-              }}
-              title={'Accessibility'}
+          </Fade>
+          <CustomDialog
+            open={openDialog}
+            onClose={() => {
+              setOpenDialog(false)
+            }}
+            title={'Accessibility'}
+          >
+            <Box
+              component={'div'}
+              display={'flex'}
+              flexDirection={'column'}
+              gap={2}
             >
-              <Stack
-                // padding={2}
-                spacing={2}
+              <Box margin={theme.spacing(2, 0, 3)} component={'div'}>
+                <Typography
+                  variant={'h6'}
+                  color={theme.palette.text.secondary}
+                  align='left'
+                >
+                  Use the controls below to customize your web experience.
+                </Typography>
+              </Box>
+              <Box
+                component={'div'}
+                sx={{ display: 'flex', justifyContent: 'space-between' }}
               >
-                <Box margin={theme.spacing(2, 0, 3)} component={'div'}>
-                  <Typography
-                    variant={'h6'}
-                    color={theme.palette.text.secondary}
-                    align='left'
-                  >
-                    Use the controls below to customize your web experience.
-                  </Typography>
-                </Box>
-                <Box
-                  component={'div'}
-                  sx={{ display: 'flex', justifyContent: 'space-between' }}
+                <Typography
+                  variant={'h6'}
+                  // ml={2}
+                  color={theme.palette.text.secondary}
                 >
-                  <Typography
-                    variant={'h6'}
-                    // ml={2}
-                    color={theme.palette.text.secondary}
-                  >
-                    Reduce color
-                  </Typography>
-                  <CustomCheckbox
-                    name={'checkbox1'}
-                    value={checked}
-                    onChange={handleChange}
-                  />
-                </Box>
-                <Divider sx={{ background: '#4c4c4c' }} />
-                <Box
-                  component={'div'}
-                  sx={{ display: 'flex', justifyContent: 'space-between' }}
+                  Reduce color
+                </Typography>
+                <Checkbox name={'checkbox1'} onChange={handleChange} />
+              </Box>
+              <Divider sx={{ background: '#4c4c4c' }} />
+              <Box
+                component={'div'}
+                sx={{ display: 'flex', justifyContent: 'space-between' }}
+              >
+                <Typography
+                  variant={'h6'}
+                  // ml={2}
+                  color={theme.palette.text.secondary}
                 >
-                  <Typography
-                    variant={'h6'}
-                    // ml={2}
-                    color={theme.palette.text.secondary}
-                  >
-                    Reduce motion
-                  </Typography>
-                  <CustomCheckbox
-                    name={'checkbox2'}
-                    value={checked}
-                    onChange={() => setIsPaused(!isPaused)}
-                  />
-                </Box>
-              </Stack>
-            </CustomDialog>
-            {/* <HomePublicHeader /> */}
+                  Reduce motion
+                </Typography>
+                <Checkbox
+                  sx={{
+                    color: '#fff',
+                    '&.Mui-checked': {
+                      color: '#fff',
+                    },
+                  }}
+                  checked={isPaused}
+                  onChange={handleChange}
+                />
+              </Box>
+            </Box>
+          </CustomDialog>
+          {/* <HomePublicHeader /> */}
+          <Fade delay={500}>
             <HomePublicFooter />
-          </BannerContainer>
-        </Fade>
+          </Fade>
+        </BannerContainer>
       )}
     </>
   )
