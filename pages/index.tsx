@@ -108,7 +108,7 @@ const Index: NextPage = () => {
           <Canvas
             className='canvas'
             shadows
-            camera={{ position: [-50, 50, 100], fov: 2 }}
+            camera={{ position: [-50, 50, 100], fov: 2.5 }}
           >
             <HomeScene
               animationFactor={animationFactor}
