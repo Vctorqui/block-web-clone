@@ -1,5 +1,4 @@
-// eslint-disable-next-line import/no-anonymous-default-export
-export default [
+export const data = [
   {
     id: 1,
     title: "Can't Stay Down",

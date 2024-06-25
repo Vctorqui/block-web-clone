@@ -1,9 +1,9 @@
 import React, { useRef, useState } from 'react'
-import data from '../mocks/data'
 import { Box, Button, Stack, Typography, styled } from '@mui/material'
 import { MuteIcon, PlayIcon, SoundIcon, TidalIcon } from './SvgIcon'
 import Link from 'next/link'
 import { Fade } from 'react-awesome-reveal'
+import { data } from '../mocks/data'
 
 const MusicPlayerBox = styled(Box)(({ theme }) => ({
   '.linkButton': {
