@@ -24,8 +24,6 @@ const BannerContainer = styled(Box)(() => ({
     position: 'fixed !important',
     inset: '0 !important',
     pointerEvent: 'none',
-    background:
-      'linear-gradient(270deg, rgba(195,34,34,1) 39%, rgba(59,168,170,1) 73%, rgba(34,193,195,1) 90%)',
   },
 }))
 
@@ -48,8 +46,14 @@ const Index: NextPage = () => {
   const animationSpeed = isPaused ? 0 : 1 // Velocidad de la animación (0 para pausar)
   const animationFactor = isPaused ? 1 : 1.5 // Factor de deformación (1 para pausar)
   const [isOpenDialog, setIsOpenDialog] = useState(false)
+  const [backgroundColor, setBackgroundColor] = useState('#ffffff')
+  const [checkBg, setCheckBg] = useState(false)
 
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleBgChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setCheckBg(event.target.checked)
+  }
+
+  const handleMotionChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setIsPaused(event.target.checked)
   }
   useEffect(() => {
@@ -78,15 +82,21 @@ const Index: NextPage = () => {
       ) : (
         <BannerContainer>
           <Canvas
+            style={{
+              background: checkBg
+                ? 'linear-gradient(90deg, rgba(252,223,255,1) 40%, rgba(228,238,249,1) 100%)'
+                : 'linear-gradient(270deg, rgba(195,34,34,1) 39%, rgba(59,168,170,1) 73%, rgba(34,193,195,1) 90%)',
+            }}
             className='canvas'
             shadows
             camera={{ position: [-50, 50, 100], fov: 2.5 }}
           >
-            {/* <HomeScene
+            <HomeScene
+              color={checkBg ? '#fff' : '#1cc3e2'}
               animationFactor={animationFactor}
               animationSpeed={animationSpeed}
-            /> */}
-            <TestScene />
+            />
+            {/* <TestScene /> */}
           </Canvas>
           <Fade delay={500}>
             <HomePublicHeader openDialog={() => setIsOpenDialog(true)} />
@@ -119,7 +129,8 @@ const Index: NextPage = () => {
                       color: '#fff',
                     },
                   }}
-                  onChange={handleChange}
+                  checked={checkBg}
+                  onChange={handleBgChange}
                 />
               </Box>
               <Divider sx={{ background: '#4c4c4c' }} />
@@ -135,7 +146,7 @@ const Index: NextPage = () => {
                     },
                   }}
                   checked={isPaused}
-                  onChange={handleChange}
+                  onChange={handleMotionChange}
                 />
               </Box>
             </CheckBoxContainer>

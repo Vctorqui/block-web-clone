@@ -6,7 +6,7 @@ import {
 import React from 'react'
 
 
-const HomeScene = ({ animationSpeed, animationFactor }: any) => {
+const HomeScene = ({ animationSpeed, animationFactor , color}: any) => {
   return (
     <>
       <OrbitControls enableZoom={false} />
@@ -16,7 +16,7 @@ const HomeScene = ({ animationSpeed, animationFactor }: any) => {
         <boxGeometry args={[2, 1.5, 1.2]} morphTargetsRelative={true} />
         <MeshWobbleMaterial
           depthTest={true}
-          color={'#1cc3e2'}
+          color={color}
           depthWrite={true}
           speed={animationSpeed}
           factor={animationFactor}
