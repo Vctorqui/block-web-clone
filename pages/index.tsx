@@ -11,7 +11,6 @@ import {
   Container,
   Divider,
   IconButton,
-  Stack,
   Typography,
   styled,
 } from '@mui/material'
@@ -26,18 +25,15 @@ const BannerContainer = styled(Box)(() => ({
   justifyContent: 'space-between',
   minHeight: 'calc(100vh - 40px)',
   [theme.breakpoints.down('sm')]: {
-    minHeight: 'calc(100vh - 80px)',
+    minHeight: 'calc(100vh - 50px)',
   },
 
   '.canvas': {
     position: 'fixed !important',
     inset: '0 !important',
-    // background: 'rgb(238, 174, 202)',
     pointerEvent: 'none',
-    // background: 'rgb(34,193,195)',
-    // background:
-    //   'radial-gradient(circle, rgba(34,193,195,1) 44%, rgba(253,71,45,1) 86%)',
-background: 'linear-gradient(270deg, rgba(195,34,34,1) 39%, rgba(59,168,170,1) 73%, rgba(34,193,195,1) 90%)'
+    background:
+      'linear-gradient(270deg, rgba(195,34,34,1) 39%, rgba(59,168,170,1) 73%, rgba(34,193,195,1) 90%)',
   },
 }))
 
@@ -74,17 +70,12 @@ const HeaderBox = styled(Box)(({ theme }) => ({
 }))
 
 const Index: NextPage = () => {
-  const [isChecked, setIsChecked] = useState(true)
   const [isLoading, setIsLoading] = useState(true)
   const [isPaused, setIsPaused] = useState(false)
   // Lógica de la animación
   const animationSpeed = isPaused ? 0 : 1 // Velocidad de la animación (0 para pausar)
   const animationFactor = isPaused ? 1 : 1.5 // Factor de deformación (1 para pausar)
   const [openDialog, setOpenDialog] = useState(false)
-
-  // const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-  //   setChecked(event.target.checked)
-  // }
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setIsPaused(event.target.checked)

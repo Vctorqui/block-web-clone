@@ -1,6 +1,14 @@
 import React, { ReactNode } from 'react'
-import { Dialog, DialogTitle, DialogContent, styled, Box, IconButton, DialogProps, Typography } from '@mui/material'
-import { Close } from '@mui/icons-material'
+import {
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  styled,
+  Box,
+  IconButton,
+  DialogProps,
+  Typography,
+} from '@mui/material'
 import { CloseIcon } from './SvgIcon'
 
 interface customDialogTypes extends DialogProps {
@@ -18,13 +26,11 @@ const BoxClose = styled(Box)(({ theme }) => ({
 }))
 
 const BoxDialog = styled(Dialog)(({ theme }) => ({
-
-  '.css-43llcs-MuiPaper-root-MuiDialog-paper' : {
+  '.css-43llcs-MuiPaper-root-MuiDialog-paper': {
     backgroundColor: '#000',
     borderRadius: 10,
     color: theme.palette.text.secondary,
     padding: '30px',
-
   },
   '&.full-mobile': {
     '.MuiDialog-paper': {
@@ -32,31 +38,54 @@ const BoxDialog = styled(Dialog)(({ theme }) => ({
       [theme.breakpoints.down('sm')]: {
         width: '100%',
         margin: '0',
-        maxHeight: '100%'
-      }
+        maxHeight: '100%',
+      },
     },
     '.MuiDialogContent-root': {
       [theme.breakpoints.down('sm')]: {
-        padding: theme.spacing(1, 2)
-      }
-    }
-  }
+        padding: theme.spacing(1, 2),
+      },
+    },
+  },
 }))
 
-const CustomDialog = ({ open, title, maxWidth = 'sm', fullMobile = false, children, onClose }: customDialogTypes) => {
+const CustomDialog = ({
+  open,
+  title,
+  maxWidth = 'sm',
+  fullMobile = false,
+  children,
+  onClose,
+}: customDialogTypes) => {
   return (
-    <BoxDialog open={open} onClose={onClose} maxWidth={maxWidth} fullWidth className={fullMobile ? 'full-mobile' : ''}>
-      <DialogTitle align="center" sx={{ position: 'relative', padding: 0, display:'flex', alignItems:'center' }}>
-        <Typography variant='h5' textAlign={'left'}>{title}</Typography>
+    <BoxDialog
+      open={open}
+      onClose={onClose}
+      maxWidth={maxWidth}
+      fullWidth
+      className={fullMobile ? 'full-mobile' : ''}
+    >
+      <DialogTitle
+        align='center'
+        sx={{
+          position: 'relative',
+          padding: 0,
+          display: 'flex',
+          alignItems: 'center',
+        }}
+      >
+        <Typography variant='h5' textAlign={'left'}>
+          {title}
+        </Typography>
         {onClose && (
           <BoxClose>
-            <IconButton sx={{color: '#fff'}} onClick={onClose}>
-              <CloseIcon  width={'20px'} height={'20px'} />
+            <IconButton sx={{ color: '#fff' }} onClick={onClose}>
+              <CloseIcon width={'20px'} height={'20px'} />
             </IconButton>
           </BoxClose>
         )}
       </DialogTitle>
-      <DialogContent sx={{padding: 0}}>{children}</DialogContent>
+      <DialogContent sx={{ padding: 0 }}>{children}</DialogContent>
     </BoxDialog>
   )
 }

@@ -1,27 +1,7 @@
 import { createTheme, responsiveFontSizes } from '@mui/material/styles'
 
-// interface micolor {
-//   gradient: {
-//     main: String
-//   }
-// }
-
-// declare module '@mui/material/styles' {
-//   interface Palette extends micolor {}
-//   interface PaletteOptions extends micolor {}
-// }
-
 
 const colors = {
-  primary: {
-    // main: '#252E57',
-    // light: '#99D5FF'
-    // light: '#394e9a80'
-  },
-  secondary: {
-    // main: '#384d99'
-    // main: '#077BE7'
-  },
   text: {
     primary: '#000',
     secondary: '#fff',
@@ -39,16 +19,12 @@ const theme = responsiveFontSizes(
       },
     },
     typography: {
-      fontFamily: ['PilatExtented', 'Helvetica', 'Arial'].join(','),
-      // h1: {
-      //   fontSize: '4.375rem',
-      //   fontFamily: 'Nulshock'
-      //   //     fontWeight: 700,
-      // }
+      fontFamily: ['NeueMachina', 'Helvetica', 'Arial'].join(','),
       button: {
         fontSize: 12,
       },
     },
+  
     components: {
       MuiButton: {
         styleOverrides: {

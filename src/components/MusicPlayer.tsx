@@ -131,6 +131,20 @@ const MusicPlayer = () => {
                 </Stack>
                 </Fade>
               )}
+              {textPlayer === 'thirdText' && (
+                <Stack alignItems={'flex-start'}>
+                <Typography
+                  fontSize={'11px'}
+                  fontWeight={900}
+                  variant='body1'
+                >
+                 Full playlist on TIDAL
+                </Typography>
+                <Typography fontSize={'11px'} variant='body1'>
+                    Curated by JAY-Z
+                  </Typography>
+              </Stack>
+              )}
               
             </Box>
             {currentSong && (
@@ -141,6 +155,8 @@ const MusicPlayer = () => {
             )}
           </Button>
           <Link
+           onMouseEnter={() => setTextPlayer('thirdText')}
+           onMouseLeave={() => setTextPlayer('firstText')}
             className='linkButton'
             href={
               'https://tidal.com/browse/playlist/3d95c4f6-dad5-4d7f-a469-8bde01b7771d'

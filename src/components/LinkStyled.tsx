@@ -15,7 +15,6 @@ const LinkStyled = styled(Link)(({ theme }) => ({
   fontWeight: 800,
   position: 'relative',
   pointerEvents:'all',
-  fontFamily: 'Pilat',
   '&:after': {
     content: '""',
     bottom: '-3px',
